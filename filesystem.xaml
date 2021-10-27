@@ -1,0 +1,31 @@
+﻿<fw:AcrylicWindow x:Class="WpfApp1.filesystem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        mc:Ignorable="d"
+                  WindowStartupLocation="CenterScreen"
+        Title="adb pull" Height="200" Width="450" ResizeMode="NoResize">
+    <Grid Margin="8,24,8,16">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock>Path of pulled file:</TextBlock>
+        <TextBox x:Name="adbPullPathTextBox"
+                 FontSize="16" HorizontalAlignment="Stretch" 
+                 VerticalAlignment="Center"></TextBox>
+
+        <Button x:Name="adbPullSaveAsButton" Grid.Row="2"
+                Style="{StaticResource ButtonRoundRevealStyle}" 
+                HorizontalAlignment="Center" 
+                Width="96"
+                Content="Save as"
+                Click="adbPullSaveAsButton_Click"
+                ></Button>
+        
+    </Grid>
+</fw:AcrylicWindow>

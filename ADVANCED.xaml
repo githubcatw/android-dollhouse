@@ -1,0 +1,16 @@
+﻿<Page x:Class="WpfApp1.ADVANCED"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d"
+      Title="ADVANCED"
+      xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+      fw:PointerTracker.Enabled="True">
+
+    <Grid xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF" fw:PointerTracker.Enabled="True" >
+        <Button Style="{StaticResource ButtonRoundRevealStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Use the CMD line"
+                x:Name="cmdButton" Click="cmdButton_Click"></Button>
+    </Grid>
+</Page>

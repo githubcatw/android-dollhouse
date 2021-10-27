@@ -1,0 +1,50 @@
+﻿<fw:AcrylicWindow  xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF" x:Class="WpfApp1.logcat"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="logcat" Height="450" Width="800"
+                   Loaded="AcrylicWindow_Loaded"
+                   Closed="Logcat_Closed">
+    <Grid xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF">
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="100"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Margin="8,0,0,0">
+                    <Rectangle Stroke="{DynamicResource SystemBaseHighColorBrush}" StrokeThickness="0.3" ></Rectangle>
+                </Grid>
+                <Button x:Name="SaveLogButton" Grid.Column="1"  Content="Save Full Log" Margin="8,0,8,0" Click="SaveLogButton_Click" Padding="12,0,12,0"></Button>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Center" Margin="8,0,0,0">Search:</TextBlock>
+                <TextBox x:Name="FilterTextBox" Height="24" 
+                     VerticalContentAlignment="Center" Margin="8,0,4,0" Grid.Column="1"/>
+                <Button x:Name="FilterButton" Grid.Column="2" Height="24" Content="Filter" Click="FilterButton_Click" Padding="16,0,16,0" Margin="0,0,8,0"></Button>
+            </Grid>
+        </Grid>
+
+        <ListView Grid.Row="1" x:Name="logcatListView" Background="Transparent" Foreground="{DynamicResource SystemBaseHighColorBrush}" ></ListView>
+    </Grid>
+</fw:AcrylicWindow>

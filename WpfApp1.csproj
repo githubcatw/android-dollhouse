@@ -1,0 +1,189 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows7.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>WpfApp1</RootNamespace>
+    <AssemblyName>Android Dollhouse</AssemblyName>
+    <ApplicationIcon />
+    <Win32Resource />
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>WpfApp1.App</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+    <Page Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="res\pixel1.png" />
+    <None Remove="res\pixel3.png" />
+    <None Remove="res\pixel3a.png" />
+    <None Remove="res\pixel3xl.png" />
+    <None Remove="res\pixel4.png" />
+    <None Remove="res\pixel5.png" />
+    <None Remove="res\platform-tools\=" />
+    <None Remove="res\platform-tools\adb.exe" />
+    <None Remove="res\platform-tools\AdbWinApi.dll" />
+    <None Remove="res\platform-tools\AdbWinUsbApi.dll" />
+    <None Remove="res\platform-tools\avcodec-58.dll" />
+    <None Remove="res\platform-tools\avformat-58.dll" />
+    <None Remove="res\platform-tools\avutil-56.dll" />
+    <None Remove="res\platform-tools\Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip" />
+    <None Remove="res\platform-tools\dmtracedump.exe" />
+    <None Remove="res\platform-tools\etc1tool.exe" />
+    <None Remove="res\platform-tools\fastboot.exe" />
+    <None Remove="res\platform-tools\hprof-conv.exe" />
+    <None Remove="res\platform-tools\libwinpthread-1.dll" />
+    <None Remove="res\platform-tools\Magisk-v23.0.zip" />
+    <None Remove="res\platform-tools\make_f2fs.exe" />
+    <None Remove="res\platform-tools\make_f2fs_casefold.exe" />
+    <None Remove="res\platform-tools\mke2fs.conf" />
+    <None Remove="res\platform-tools\mke2fs.exe" />
+    <None Remove="res\platform-tools\NOTICE.txt" />
+    <None Remove="res\platform-tools\parted" />
+    <None Remove="res\platform-tools\scrcpy-console.bat" />
+    <None Remove="res\platform-tools\scrcpy-noconsole.vbs" />
+    <None Remove="res\platform-tools\scrcpy-server" />
+    <None Remove="res\platform-tools\scrcpy-server-v1.18" />
+    <None Remove="res\platform-tools\scrcpy.exe" />
+    <None Remove="res\platform-tools\SDL2.dll" />
+    <None Remove="res\platform-tools\sqlite3.exe" />
+    <None Remove="res\platform-tools\swresample-3.dll" />
+    <None Remove="res\platform-tools\swscale-5.dll" />
+    <None Remove="res\quack.mp3" />
+    <None Remove="res\quack.wav" />
+    <None Remove="res\taimen.png" />
+    <None Remove="res\walleye.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="res\pixel3a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentWPF" Version="0.10.2" />
+    <PackageReference Include="Octokit" Version="0.50.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="res\pixel1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\pixel3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\pixel3xl.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\pixel4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\pixel5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\=">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\adb.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\AdbWinApi.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\AdbWinUsbApi.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\avcodec-58.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\avformat-58.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\avutil-56.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\Disable_Dm-Verity_ForceEncrypt_11.02.2020.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\dmtracedump.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\etc1tool.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\fastboot.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\hprof-conv.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\libwinpthread-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\Magisk-v23.0.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\make_f2fs.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\make_f2fs_casefold.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\mke2fs.conf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\mke2fs.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\NOTICE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\parted">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\scrcpy-console.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\scrcpy-noconsole.vbs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\scrcpy-server">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\scrcpy-server-v1.18">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\scrcpy.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\SDL2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\sqlite3.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\swresample-3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\platform-tools\swscale-5.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\quack.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\taimen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\walleye.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

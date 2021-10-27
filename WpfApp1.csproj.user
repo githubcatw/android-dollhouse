@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>D:\source\repos\WpfApp1\WpfApp1\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="adbPullWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ADVANCED.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="decrypt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="filesystem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="logcat.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MAIN.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SCRIPTS.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="settings.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="adbPullWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ADVANCED.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="decrypt.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="filesystem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="logcat.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MAIN.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SCRIPTS.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="settings.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>
