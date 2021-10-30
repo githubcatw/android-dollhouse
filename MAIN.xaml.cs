@@ -32,9 +32,9 @@ namespace WpfApp1
             fetchData();
         }
 
-        private void fetchData()
+        private async void fetchData()
         {
-            MainWindow.adbDevice = new PluggedDevice();
+            MainWindow.adbDevice = new PluggedDevice(DeviceInfoRefresh);
             serial.Text = MainWindow.adbDevice.deviceSerial;
             imei.Text = MainWindow.adbDevice.deviceImei;
             storage.Text = MainWindow.adbDevice.deviceStorage;
@@ -85,11 +85,27 @@ namespace WpfApp1
             {
                 streamScreenButton.IsEnabled = true;
 
-                if (MainWindow.adbDevice.deviceName.Contains("sargo"))
+                if (MainWindow.adbDevice.deviceName.Contains("marlin"))
+                {
+                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel1.png", UriKind.Relative));
+                }
+                else if (MainWindow.adbDevice.deviceName.Contains("sailfish"))
+                {
+                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel1.png", UriKind.Relative));
+                }
+                else if (MainWindow.adbDevice.deviceName.Contains("oriole"))
+                {
+                    deviceImage.Source = new BitmapImage(new Uri("./res/oriole.png", UriKind.Relative));
+                }
+                else if (MainWindow.adbDevice.deviceName.Contains("raven"))
+                {
+                    deviceImage.Source = new BitmapImage(new Uri("./res/raven.png", UriKind.Relative));
+                }
+                else if (MainWindow.adbDevice.deviceName.Contains("sargo"))
                 {
                     deviceImage.Source = new BitmapImage(new Uri("./res/pixel3a.png", UriKind.Relative));
                 }
-                if (MainWindow.adbDevice.deviceName.Contains("taimen"))
+                else if (MainWindow.adbDevice.deviceName.Contains("taimen"))
                 {
                     deviceImage.Source = new BitmapImage(new Uri("./res/taimen.png", UriKind.Relative));
                 }
@@ -603,35 +619,39 @@ namespace WpfApp1
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardError = true;
 
-            if (systemPartitionRadioButton.IsChecked==true)
+            if (MessageBox.Show("Are you sure? Partition cannot be recovered if erased.","Warning",MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                p.StartInfo.Arguments = "erase system";
-                p.Start();
-                p.WaitForExit();
-                p.Kill();
-                p.Dispose();
+                if (systemPartitionRadioButton.IsChecked == true)
+                {
+                    p.StartInfo.Arguments = "erase system";
+                    p.Start();
+                    p.WaitForExit();
+                    p.Kill();
+                    p.Dispose();
+                }
+                else if (bootPartitionRadioButton.IsChecked == true)
+                {
+                    p.StartInfo.Arguments = "erase boot";
+                    p.Start();
+                    p.WaitForExit();
+                    p.Kill();
+                    p.Dispose();
+                }
+                else if (vendorPartitionRadioButton.IsChecked == true)
+                {
+                    p.StartInfo.Arguments = "erase vendor";
+                    p.Start();
+                    p.WaitForExit();
+                    p.Kill();
+                    p.Dispose();
+                }
+                else
+                {
+                    MessageBox.Show(Application.Current.MainWindow, "Please select partition.", "Partition not selected");
+                    return;
+                }
             }
-            else if (bootPartitionRadioButton.IsChecked==true)
-            {
-                p.StartInfo.Arguments = "erase boot";
-                p.Start();
-                p.WaitForExit();
-                p.Kill();
-                p.Dispose();
-            }
-            else if (vendorPartitionRadioButton.IsChecked == true)
-            {
-                p.StartInfo.Arguments = "erase vendor";
-                p.Start();
-                p.WaitForExit();
-                p.Kill();
-                p.Dispose();
-            }
-            else
-            {
-                MessageBox.Show(Application.Current.MainWindow, "Please select partition.", "Partition not selected");
-                return;
-            }
+            
         }
 
         private void dataPartitionFormatButton_Click(object sender, RoutedEventArgs e)

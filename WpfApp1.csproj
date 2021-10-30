@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="res\oriole.png" />
     <None Remove="res\pixel1.png" />
     <None Remove="res\pixel3.png" />
     <None Remove="res\pixel3a.png" />
@@ -57,12 +58,19 @@
     <None Remove="res\platform-tools\swscale-5.dll" />
     <None Remove="res\quack.mp3" />
     <None Remove="res\quack.wav" />
+    <None Remove="res\raven.png" />
     <None Remove="res\taimen.png" />
     <None Remove="res\walleye.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="res\oriole.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\pixel3a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\raven.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -10,5 +10,7 @@ namespace WpfApp1
     {
         public bool AutoUpdatePref { get; set; } = false;
         public int CurrentTheme { get; set; } = 0;
+
+        public int easyMode { get; set; } = 1;
     }
 }

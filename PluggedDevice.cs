@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
+using System.Windows.Controls;
 
 namespace WpfApp1
 {
@@ -22,7 +23,7 @@ namespace WpfApp1
         public string deviceCurrentVendor = "";
         public string deviceSELINUXStatus = "";
 
-        public PluggedDevice()
+        public PluggedDevice(Button b)
         {
             Process p = new Process();
             p.StartInfo.FileName = "./res/platform-tools/adb.exe";
@@ -32,11 +33,10 @@ namespace WpfApp1
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.Arguments = "devices -l";
-
+            b.Content = "Refreshing";
             //Get current mode
             p.Start();
-            p.WaitForExit();
-            p.Kill();
+            p.WaitForExitAsync();
             string output = p.StandardOutput.ReadToEnd().Remove(0,26).Trim();
             output = Regex.Replace(output, @"\s+", " ");
             string[] data = output.Split(" ").ToArray();
@@ -81,8 +81,7 @@ namespace WpfApp1
                 }
 
             }
-            p.WaitForExit();
-            p.Kill();
+            p.WaitForExitAsync();
 
             //get product.name(codename)
 
@@ -95,6 +94,7 @@ namespace WpfApp1
             p.StartInfo.Arguments = "shell getprop ro.product.name";
             p.Start();
             deviceName = p.StandardOutput.ReadToEnd().Trim();
+            p.WaitForExitAsync();
 
             //get product.model
 
@@ -137,8 +137,7 @@ namespace WpfApp1
                 {
                     deviceSELINUXStatus = output;
                 }
-                p.WaitForExit();
-                p.Kill();
+                p.WaitForExitAsync();
 
                 //get imei
                 if (deviceCurrentMode == "Recovery")
@@ -152,8 +151,7 @@ namespace WpfApp1
                     p.StandardInput.WriteLine("exit");
                     output = p.StandardOutput.ReadToEnd().Trim();
                     deviceImei = output;
-                    p.WaitForExit();
-                    p.Kill();
+                    p.WaitForExitAsync();
                 }
                 
                 
@@ -193,8 +191,7 @@ namespace WpfApp1
                 {
                     deviceStorage = "Can't detect storage.";
                 }
-                p.WaitForExit();
-                p.Kill();
+                p.WaitForExitAsync();
 
 
                 //get boot slot
@@ -205,7 +202,7 @@ namespace WpfApp1
                     p.Start();
                     output = p.StandardOutput.ReadToEnd().Trim().Replace("_", "");
                     deviceCurrentSlot = output;
-                    p.Kill();
+                    p.WaitForExitAsync();
                 }
                 else
                 {
@@ -214,7 +211,7 @@ namespace WpfApp1
                     p.Start();
                     output = p.StandardError.ReadToEnd().Trim().Replace("_", "");
                     deviceCurrentSlot = output;
-                    p.Kill();
+                    p.WaitForExitAsync();
                 }
                 
 
@@ -228,7 +225,7 @@ namespace WpfApp1
                 data = output.Split(" ").ToArray();
                 deviceModel = data[1];
                 deviceName = "Bootloader Mode";
-                p.Kill();
+                p.WaitForExitAsync();
 
                 //get slot in fastboot
                 p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
@@ -238,13 +235,17 @@ namespace WpfApp1
                 data = output.Replace("\r"," ").Replace("\n","").Split(" ").ToArray();
                 
                 deviceCurrentSlot = data[1];
-                p.Kill();
+                p.WaitForExitAsync();
             }
 
             
+            
+            p.WaitForExitAsync();
             p.Kill();
-            p.WaitForExit();
+            b.Content = "Refresh";
 
         }
+
+        
     }
 }

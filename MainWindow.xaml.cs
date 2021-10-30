@@ -29,8 +29,8 @@ namespace WpfApp1
     public partial class MainWindow
     {
         
-        string VersionNumber = "v0.0.2-alpha";
-        public static PluggedDevice adbDevice = new PluggedDevice();
+        string VersionNumber = "v0.0.3-alpha";
+        public static PluggedDevice adbDevice;
         public MAIN MAIN = new MAIN();
         public int settings;
         static readonly HttpClient downloader = new HttpClient();

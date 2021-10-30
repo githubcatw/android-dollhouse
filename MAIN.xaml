@@ -165,6 +165,22 @@
                         <Button x:Name="partitionFlashButton" Click="partitionFlashButton_Click" Height="24" Margin="0,0,5,0" Content="Flash Partition" Style="{StaticResource ButtonRoundRevealStyle}"></Button>
                         <Button x:Name="partitionWipeButton" Click="partitionWipeButton_Click" Height="24" Margin="5,0,0,0" Grid.Column="1" Content="Erase Partition" Style="{StaticResource ButtonRoundRevealStyle}"></Button>
                     </Grid>
+                    <StackPanel Margin="8,0,0,0">
+                        <RadioButton GroupName="partitionSelectorRadioButtonGroup" 
+                                 x:Name="systemPartitionRadioButton" 
+                                 Content="System" 
+                                 Foreground="{DynamicResource SystemBaseHighColorBrush}"></RadioButton>
+                        <RadioButton GroupName="partitionSelectorRadioButtonGroup" 
+                                 x:Name="vendorPartitionRadioButton"
+                                 Content="Vendor"
+                                 Foreground="{DynamicResource SystemBaseHighColorBrush}"></RadioButton>
+                        <RadioButton GroupName="partitionSelectorRadioButtonGroup" 
+                                 x:Name="bootPartitionRadioButton"
+                                 Content="Boot"
+                                 Margin="0,0,0,8"
+                                 Foreground="{DynamicResource SystemBaseHighColorBrush}"></RadioButton>
+                    </StackPanel>
+                    
                     <Button x:Name="dataPartitionFormatButton" Height="24" Margin="0,0,0,12" Content="Format 'userdata' Partition" 
                             Style="{StaticResource ButtonRoundRevealStyle}"
                             Click="dataPartitionFormatButton_Click"></Button>
@@ -173,18 +189,7 @@
                             Click="bootImgButton_Click"></Button>
                     
                     
-                    <RadioButton GroupName="partitionSelectorRadioButtonGroup" 
-                                 x:Name="systemPartitionRadioButton" 
-                                 Content="System" 
-                                 Foreground="{DynamicResource SystemBaseHighColorBrush}"></RadioButton>
-                    <RadioButton GroupName="partitionSelectorRadioButtonGroup" 
-                                 x:Name="vendorPartitionRadioButton"
-                                 Content="Vendor"
-                                 Foreground="{DynamicResource SystemBaseHighColorBrush}"></RadioButton>
-                    <RadioButton GroupName="partitionSelectorRadioButtonGroup" 
-                                 x:Name="bootPartitionRadioButton"
-                                 Content="Boot"
-                                 Foreground="{DynamicResource SystemBaseHighColorBrush}"></RadioButton>
+                    
                 </StackPanel>
             </Grid>
 
