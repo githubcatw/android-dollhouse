@@ -22,6 +22,7 @@ namespace WpfApp1
         public bool deviceIsInBootloader = false;
         public string deviceCurrentVendor = "";
         public string deviceSELINUXStatus = "";
+        public bool deviceIsSamsung = false;
 
         public PluggedDevice(Button b)
         {
@@ -101,6 +102,9 @@ namespace WpfApp1
             p.StartInfo.Arguments = "shell getprop ro.product.model";
             p.Start();
             deviceModel = p.StandardOutput.ReadToEnd().Trim();
+            if (deviceModel.StartsWith("SM-")) {
+                deviceIsSamsung = true;
+            }
 
             if (deviceCurrentMode != "Bootloader")
             {

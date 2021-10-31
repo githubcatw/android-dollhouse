@@ -163,7 +163,10 @@ namespace WpfApp1
                 FlashZipTwrpButton.IsEnabled = false;
                 FormatDataTwrpButton.IsEnabled = false;
                 sideloadTwrpButton.IsEnabled = false;
-
+                if (MainWindow.adbDevice.deviceIsSamsung)
+                    bootloaderSwitch.Content = "Download Mode";
+                else
+                    bootloaderSwitch.Content = "Bootloader Mode";
             }
 
             else if (MainWindow.adbDevice.deviceCurrentMode == "Bootloader")
