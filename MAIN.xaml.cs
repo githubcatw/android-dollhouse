@@ -163,7 +163,10 @@ namespace WpfApp1
                 FlashZipTwrpButton.IsEnabled = false;
                 FormatDataTwrpButton.IsEnabled = false;
                 sideloadTwrpButton.IsEnabled = false;
-
+                if (MainWindow.adbDevice.deviceIsSamsung)
+                    bootloaderSwitch.Content = "Download Mode";
+                else
+                    bootloaderSwitch.Content = "Bootloader Mode";
             }
 
             else if (MainWindow.adbDevice.deviceCurrentMode == "Bootloader")
@@ -266,15 +269,16 @@ namespace WpfApp1
 
             }
 
-            if (MainWindow.adbDevice.deviceCurrentSlot == "b")
-            {
+            if (MainWindow.adbDevice.deviceCurrentSlot == "") {
+                currentSlotLabel.Text = "Device is A-only";
+                slotASwitch.Visibility = slotBSwitch.Visibility = slotSwitchButton.Visibility = Visibility.Collapsed;
+            } else {
+                if (MainWindow.adbDevice.deviceCurrentSlot == "b")
+                    currentSlotLabel.Text = "Current Slot: B";
+                else if (MainWindow.adbDevice.deviceCurrentSlot == "a")
+                    currentSlotLabel.Text = "Current Slot: A";
 
-                currentSlotLabel.Text = "Current Slot: B";
-            }
-            else if (MainWindow.adbDevice.deviceCurrentSlot == "a")
-            {
-
-                currentSlotLabel.Text = "Current Slot: A";
+                slotASwitch.Visibility = slotBSwitch.Visibility = slotSwitchButton.Visibility = Visibility.Visible;
             }
 
         }

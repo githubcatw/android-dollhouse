@@ -22,6 +22,8 @@ namespace WpfApp1
         public bool deviceIsInBootloader = false;
         public string deviceCurrentVendor = "";
         public string deviceSELINUXStatus = "";
+        public bool deviceIsSamsung = false;
+        public string deviceKnoxBit = "";
 
         public PluggedDevice(Button b)
         {
@@ -101,6 +103,16 @@ namespace WpfApp1
             p.StartInfo.Arguments = "shell getprop ro.product.model";
             p.Start();
             deviceModel = p.StandardOutput.ReadToEnd().Trim();
+            if (deviceModel.StartsWith("SM-")) {
+                deviceIsSamsung = true;
+
+                // Detect warranty bit
+                var bit = GetProp("ro.boot.warranty_bit");
+                if (bit == "") {
+                    bit = GetProp("ro.warranty_bit");
+                }
+                deviceKnoxBit = bit;
+            }
 
             if (deviceCurrentMode != "Bootloader")
             {
@@ -246,6 +258,21 @@ namespace WpfApp1
 
         }
 
-        
+        string GetProp(string prop) {
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.FileName = "./res/platform-tools/adb.exe";
+            p.StartInfo.Arguments = "shell getprop " + prop;
+            p.Start();
+            var ret = p.StandardOutput.ReadToEnd().Trim();
+            p.WaitForExitAsync();
+            return ret;
+        }
+
+
     }
 }
