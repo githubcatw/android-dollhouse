@@ -1,5 +1,6 @@
 .vs/
 bin/
-res/
+res/*
+!res/generic.png
 obj/
 WpfApp1.sln

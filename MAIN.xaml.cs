@@ -135,7 +135,7 @@ namespace WpfApp1
                 }
                 else
                 {
-                    deviceImage.Source = null;
+                    deviceImage.Source = new BitmapImage(new Uri("./res/generic.png", UriKind.Relative));
                 }
 
                 DeviceModeSwitchButton.IsEnabled = true;
