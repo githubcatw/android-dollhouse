@@ -234,7 +234,9 @@ namespace WpfApp1
                 deviceImage.Source = new BitmapImage(new Uri("./res/pixel5.png", UriKind.Relative));
             }
             else {
-                deviceImage.Source = new BitmapImage(new Uri("./res/generic.png", UriKind.Relative));
+                deviceImage.Source = MainWindow.adbDevice.deviceIsSamsung
+                    ? new BitmapImage(new Uri("./res/generic_samsung.png", UriKind.Relative))
+                    : new BitmapImage(new Uri("./res/generic.png", UriKind.Relative));
             }
         }
 

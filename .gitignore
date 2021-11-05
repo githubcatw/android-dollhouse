@@ -2,5 +2,6 @@
 bin/
 res/*
 !res/generic.png
+!res/generic_samsung.png
 obj/
 WpfApp1.sln
