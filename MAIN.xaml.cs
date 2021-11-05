@@ -81,62 +81,10 @@ namespace WpfApp1
 
             }
 
-            if (MainWindow.adbDevice.deviceCurrentMode == "System")
-            {
+            if (MainWindow.adbDevice.deviceCurrentMode == "System") {
                 streamScreenButton.IsEnabled = true;
 
-                if (MainWindow.adbDevice.deviceName.Contains("marlin"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel1.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("sailfish"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel1.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("oriole"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/oriole.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("raven"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/raven.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("sargo"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel3a.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("taimen"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/taimen.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("walleye"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/walleye.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("blueline"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel3.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("crosshatch"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel3xl.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("flame"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel4.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("coral"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel4xl.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("redfin"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel5.png", UriKind.Relative));
-                }
-                else
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/generic.png", UriKind.Relative));
-                }
+                updateImage();
 
                 DeviceModeSwitchButton.IsEnabled = true;
 
@@ -204,42 +152,7 @@ namespace WpfApp1
             {
                 streamScreenButton.IsEnabled = false;
 
-                if (MainWindow.adbDevice.deviceName.Contains("sargo"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel3a.png", UriKind.Relative));
-                }
-                if (MainWindow.adbDevice.deviceName.Contains("taimen"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/taimen.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("walleye"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/walleye.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("blueline"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel3.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("crosshatch"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel3xl.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("flame"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel4.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("coral"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel4xl.png", UriKind.Relative));
-                }
-                else if (MainWindow.adbDevice.deviceName.Contains("redfin"))
-                {
-                    deviceImage.Source = new BitmapImage(new Uri("./res/pixel5.png", UriKind.Relative));
-                }
-                else
-                {
-                    deviceImage.Source = null;
-                }
+                updateImage();
 
                 DeviceModeSwitchButton.IsEnabled = true;
 
@@ -282,6 +195,49 @@ namespace WpfApp1
             }
 
         }
+
+        private void updateImage() {
+            if (MainWindow.adbDevice.deviceName.Contains("marlin")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel1.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("sailfish")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel1.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("oriole")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/oriole.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("raven")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/raven.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("sargo")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel3a.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("taimen")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/taimen.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("walleye")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/walleye.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("blueline")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel3.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("crosshatch")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel3xl.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("flame")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel4.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("coral")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel4xl.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("redfin")) {
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel5.png", UriKind.Relative));
+            }
+            else {
+                deviceImage.Source = new BitmapImage(new Uri("./res/generic.png", UriKind.Relative));
+            }
+        }
+
         private void DeviceInfoRefresh_Click(object sender, RoutedEventArgs e)
         {
             fetchData();
