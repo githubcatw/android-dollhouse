@@ -197,41 +197,44 @@ namespace WpfApp1
         }
 
         private void updateImage() {
-            if (MainWindow.adbDevice.deviceName.Contains("marlin")) {
+            if (MainWindow.adbDevice.deviceName.Contains("marlin")) {          /* P1 */
                 deviceImage.Source = new BitmapImage(new Uri("./res/pixel1.png", UriKind.Relative));
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("sailfish")) {
+            else if (MainWindow.adbDevice.deviceName.Contains("sailfish")) {   /* P1 XL */
                 deviceImage.Source = new BitmapImage(new Uri("./res/pixel1.png", UriKind.Relative));
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("oriole")) {
-                deviceImage.Source = new BitmapImage(new Uri("./res/oriole.png", UriKind.Relative));
-            }
-            else if (MainWindow.adbDevice.deviceName.Contains("raven")) {
-                deviceImage.Source = new BitmapImage(new Uri("./res/raven.png", UriKind.Relative));
-            }
-            else if (MainWindow.adbDevice.deviceName.Contains("sargo")) {
-                deviceImage.Source = new BitmapImage(new Uri("./res/pixel3a.png", UriKind.Relative));
-            }
-            else if (MainWindow.adbDevice.deviceName.Contains("taimen")) {
-                deviceImage.Source = new BitmapImage(new Uri("./res/taimen.png", UriKind.Relative));
-            }
-            else if (MainWindow.adbDevice.deviceName.Contains("walleye")) {
+            else if (MainWindow.adbDevice.deviceName.Contains("walleye")) {    /* P2 */
                 deviceImage.Source = new BitmapImage(new Uri("./res/walleye.png", UriKind.Relative));
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("blueline")) {
+            else if (MainWindow.adbDevice.deviceName.Contains("taimen")) {     /* P2 XL */
+                deviceImage.Source = new BitmapImage(new Uri("./res/taimen.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("blueline")) {   /* P3 */
                 deviceImage.Source = new BitmapImage(new Uri("./res/pixel3.png", UriKind.Relative));
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("crosshatch")) {
+            else if (MainWindow.adbDevice.deviceName.Contains("crosshatch")) { /* P3 XL */
                 deviceImage.Source = new BitmapImage(new Uri("./res/pixel3xl.png", UriKind.Relative));
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("flame")) {
+            else if (MainWindow.adbDevice.deviceName.Contains("sargo")) {      /* P3a */
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel3a.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("bonito")) {     /* P3a XL */
+                deviceImage.Source = new BitmapImage(new Uri("./res/pixel3a.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("flame")) {      /* P4 */
                 deviceImage.Source = new BitmapImage(new Uri("./res/pixel4.png", UriKind.Relative));
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("coral")) {
+            else if (MainWindow.adbDevice.deviceName.Contains("coral")) {      /* P4 XL */
                 deviceImage.Source = new BitmapImage(new Uri("./res/pixel4xl.png", UriKind.Relative));
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("redfin")) {
+            else if (MainWindow.adbDevice.deviceName.Contains("redfin")) {     /* P5 */
                 deviceImage.Source = new BitmapImage(new Uri("./res/pixel5.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("oriole")) {     /* P6 */
+                deviceImage.Source = new BitmapImage(new Uri("./res/oriole.png", UriKind.Relative));
+            }
+            else if (MainWindow.adbDevice.deviceName.Contains("raven")) {      /* P6 Pro */
+                deviceImage.Source = new BitmapImage(new Uri("./res/raven.png", UriKind.Relative));
             }
             else {
                 deviceImage.Source = MainWindow.adbDevice.deviceIsSamsung
