@@ -154,7 +154,7 @@ namespace WpfApp1
                 //get imei
                 if (deviceCurrentMode == "Recovery")
                 {
-                    deviceImei = "IMEI Inaccessible in TWRP";
+                    deviceImei = "Inaccessible in TWRP";
                 }
                 else if (deviceCurrentMode == "System")
                 {
@@ -162,7 +162,8 @@ namespace WpfApp1
                     p.StandardInput.WriteLine("service call iphonesubinfo 1 | cut -c 52-66 | tr -d '.[:space:]'");
                     p.StandardInput.WriteLine("exit");
                     output = p.StandardOutput.ReadToEnd().Trim();
-                    deviceImei = output;
+                    if (output == "')") deviceImei = "Inaccessible";
+                    else deviceImei = output;
                     p.WaitForExitAsync();
                 }
                 
