@@ -143,11 +143,11 @@ namespace WpfApp1
             }
 
             // TODO better HarmonyOS detection (I don't have a Huawei device)
-            // This method assumes that every Kirin device running Android 10 is running HarmonyOS
-            p.StartInfo.Arguments = "shell getprop ro.hardware";
+            // This method assumes that every Huawei device running Android 10 is running HarmonyOS
+            p.StartInfo.Arguments = "shell getprop ro.build.fingerprint";
             p.Start();
-            var soc = p.StandardOutput.ReadToEnd().Trim();
-            if (soc.StartsWith("kirin") && sdk == "29") {
+            var fp = p.StandardOutput.ReadToEnd().Trim();
+            if (fp.StartsWith("HUAWEI") && sdk == "29") {
                 deviceIsHMOS = true;
             }
 
