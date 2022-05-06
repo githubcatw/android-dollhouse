@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <None Remove="res\generic.png" />
+    <None Remove="res\generic_hmos.png" />
     <None Remove="res\generic_samsung.png" />
     <None Remove="res\oriole.png" />
     <None Remove="res\pixel1.png" />
@@ -65,6 +66,9 @@
 
   <ItemGroup>
     <Content Include="res\generic.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\generic_hmos.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="res\generic_samsung.png">
