@@ -239,21 +239,25 @@ namespace WpfApp1
             else if (MainWindow.adbDevice.deviceName.Contains("raven")) {      /* P6 Pro */
                 setImageOrGeneric("./res/raven.png");
             }
-            else {
-                deviceImage.Source = MainWindow.adbDevice.deviceIsSamsung
-                    ? new BitmapImage(new Uri("./res/generic_samsung.png", UriKind.Relative))
-                    : new BitmapImage(new Uri("./res/generic.png", UriKind.Relative));
-            }
+            else setGeneric();
         }
 
         private void setImageOrGeneric(string path) {
             if (System.IO.File.Exists(path)) {
                 deviceImage.Source = new BitmapImage(new Uri(path, UriKind.Relative));
-            } else {
-                deviceImage.Source = MainWindow.adbDevice.deviceIsSamsung
-                    ? new BitmapImage(new Uri("./res/generic_samsung.png", UriKind.Relative))
-                    : new BitmapImage(new Uri("./res/generic.png", UriKind.Relative));
             }
+            else setGeneric();
+        }
+
+        private void setGeneric() {
+            var uri = "";
+            if (MainWindow.adbDevice.deviceIsSamsung)
+                uri = "./res/generic_samsung.png";
+            else if (MainWindow.adbDevice.deviceIsHMOS)
+                uri = "./res/generic_hmos.png";
+            else
+                uri = "./res/generic.png";
+            deviceImage.Source = new BitmapImage(new Uri(uri, UriKind.Relative));
         }
 
         private void DeviceInfoRefresh_Click(object sender, RoutedEventArgs e)
