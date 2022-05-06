@@ -230,6 +230,9 @@ namespace WpfApp1
             else if (MainWindow.adbDevice.deviceName.Contains("redfin")) {     /* P5 */
                 setImageOrGeneric("./res/pixel5.png");
             }
+            else if (MainWindow.adbDevice.deviceName.Contains("barbet")) {     /* P5a */
+                setImageOrGeneric("./res/barbet.png");
+            }
             else if (MainWindow.adbDevice.deviceName.Contains("oriole")) {     /* P6 */
                 setImageOrGeneric("./res/oriole.png");
             }
