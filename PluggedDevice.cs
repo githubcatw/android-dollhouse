@@ -133,42 +133,31 @@ namespace WpfApp1
 
             if (CurrentMode != PluggedDeviceMode.Bootloader)
             {
+                //get selinux
                 p.StartInfo.FileName = "./res/platform-tools/adb.exe";
                 p.StartInfo.Arguments = "shell";
                 p.Start();
                 p.StandardInput.WriteLine("getenforce");
                 p.StandardInput.WriteLine("exit");
                 output = p.StandardOutput.ReadToEnd().Trim();
-                if (output == "")
-                {
+                if (output == "") {
                     p.Start();
                     p.StandardInput.WriteLine("su");
                     p.StandardInput.WriteLine("getenforce");
                     p.StandardInput.WriteLine("exit");
                     output = p.StandardOutput.ReadToEnd().Trim();
-                    if (output == "")
-                    {
-                        SELinuxStatus = "Requires root";
-                    }
-                    else
-                    {
-                        SELinuxStatus = output;
-                    }
-                    
+                    SELinuxStatus = output == "" ? "Requires root" : output;
                 }
-                else
-                {
+                else {
                     SELinuxStatus = output;
                 }
                 p.WaitForExitAsync();
 
                 //get imei
-                if (CurrentMode == PluggedDeviceMode.Recovery)
-                {
+                if (CurrentMode == PluggedDeviceMode.Recovery) {
                     IMEI = "Inaccessible in TWRP";
                 }
-                else if (CurrentMode == PluggedDeviceMode.System)
-                {
+                else if (CurrentMode == PluggedDeviceMode.System) {
                     p.Start();
                     p.StandardInput.WriteLine("service call iphonesubinfo 1 | cut -c 52-66 | tr -d '.[:space:]'");
                     p.StandardInput.WriteLine("exit");
@@ -189,59 +178,46 @@ namespace WpfApp1
                 output = p.StandardOutput.ReadToEnd().Trim();
                 output = Regex.Replace(output, @"\s+", " ");
                 data = output.Split(" ").ToArray();
-                try
-                {
+                try {
                     Storage = data[1] + 'B';
                     Storage = new string(Storage.Where(Char.IsDigit).ToArray());
-                    if (int.Parse(Storage) <= 32)
-                    {
-                        Storage = "32GB";
-                    }
-                    else if (int.Parse(Storage) <= 64 && int.Parse(Storage)>32)
-                    {
-                        Storage = "64GB";
-                    }
-                    else if (int.Parse(Storage) <= 128 && int.Parse(Storage) > 64)
-                    {
-                        Storage = "128GB";
-                    }
-                    else if (int.Parse(Storage) <= 256 && int.Parse(Storage) > 128)
-                    {
-                        Storage = "256GB";
+                    switch (int.Parse(Storage)) {
+                        case <= 32:
+                            Storage = "32GB";
+                            break;
+                        case <= 64 and > 32:
+                            Storage = "64GB";
+                            break;
+                        case <= 128 and > 64:
+                            Storage = "128GB";
+                            break;
+                        case <= 256 and > 128:
+                            Storage = "256GB";
+                            break;
                     }
 
                 }
-                catch (IndexOutOfRangeException)
-                {
+                catch (IndexOutOfRangeException) {
                     Storage = "Can't detect storage.";
                 }
                 p.WaitForExitAsync();
 
 
                 //get boot slot
-                if (CurrentMode != PluggedDeviceMode.Bootloader)
-                {
+                if (CurrentMode != PluggedDeviceMode.Bootloader) {
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
                     p.StartInfo.Arguments = "shell /bin/getprop ro.boot.slot_suffix";
-                    p.Start();
-                    output = p.StandardOutput.ReadToEnd().Trim().Replace("_", "");
-                    CurrentSlot = output;
-                    p.WaitForExitAsync();
                 }
-                else
-                {
+                else {
                     p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
                     p.StartInfo.Arguments = "getvar current-slot";
-                    p.Start();
-                    output = p.StandardError.ReadToEnd().Trim().Replace("_", "");
-                    CurrentSlot = output;
-                    p.WaitForExitAsync();
                 }
-                
-
+                p.Start();
+                output = p.StandardOutput.ReadToEnd().Trim().Replace("_", "");
+                CurrentSlot = output;
+                p.WaitForExitAsync();
             }
-            else
-            {
+            else {
                 p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
                 p.StartInfo.Arguments = "getvar product";
                 p.Start();
@@ -261,13 +237,10 @@ namespace WpfApp1
                 CurrentSlot = data[1];
                 p.WaitForExitAsync();
             }
-
-            
             
             p.WaitForExitAsync();
             p.Kill();
             b.Content = "Refresh";
-
         }
 
         string GetProp(string prop) {
