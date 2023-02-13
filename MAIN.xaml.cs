@@ -197,10 +197,8 @@ namespace WpfApp1
         }
 
         private void updateImage() {
-            if (MainWindow.adbDevice.Name.Contains("marlin")) {          /* P1 */
-                setImageOrGeneric("./res/pixel1.png");
-            }
-            else if (MainWindow.adbDevice.Name.Contains("sailfish")) {   /* P1 XL */
+            if (MainWindow.adbDevice.Name.Contains("marlin")
+             || MainWindow.adbDevice.Name.Contains("sailfish")) {          /* P1/P1 XL */
                 setImageOrGeneric("./res/pixel1.png");
             }
             else if (MainWindow.adbDevice.Name.Contains("walleye")) {    /* P2 */
@@ -215,10 +213,8 @@ namespace WpfApp1
             else if (MainWindow.adbDevice.Name.Contains("crosshatch")) { /* P3 XL */
                 setImageOrGeneric("./res/pixel3xl.png");
             }
-            else if (MainWindow.adbDevice.Name.Contains("sargo")) {      /* P3a */
-                setImageOrGeneric("./res/pixel3a.png");
-            }
-            else if (MainWindow.adbDevice.Name.Contains("bonito")) {     /* P3a XL */
+            else if (MainWindow.adbDevice.Name.Contains("sargo")
+                  || MainWindow.adbDevice.Name.Contains("bonito")) {     /* P3a/P3a XL */
                 setImageOrGeneric("./res/pixel3a.png");
             }
             else if (MainWindow.adbDevice.Name.Contains("flame")) {      /* P4 */
@@ -239,6 +235,15 @@ namespace WpfApp1
             else if (MainWindow.adbDevice.Name.Contains("raven")) {      /* P6 Pro */
                 setImageOrGeneric("./res/raven.png");
             }
+            else if (MainWindow.adbDevice.Name.Contains("bluejay")) {    /* P6a */
+                setImageOrGeneric("./res/bluejay.png");
+            }
+            else if (MainWindow.adbDevice.Name.Contains("cheetah")) {    /* P7 */
+                setImageOrGeneric("./res/cheetah.png");
+            }
+            else if (MainWindow.adbDevice.Name.Contains("panther")) {    /* P7 Pro */
+                setImageOrGeneric("./res/panther.png");
+            }
             else setGeneric();
         }
 
@@ -250,7 +255,7 @@ namespace WpfApp1
         }
 
         private void setGeneric() {
-            var uri = "";
+            string uri;
             if (MainWindow.adbDevice.IsSamsung)
                 uri = "./res/generic_samsung.png";
             else if (MainWindow.adbDevice.IsHMOS)
@@ -710,7 +715,6 @@ namespace WpfApp1
 
         private void FormatDataTwrpButton_Click(object sender, RoutedEventArgs e)
         {
-            
             if (MessageBox.Show(Application.Current.MainWindow, "Are you sure you want to format your data partition? (This will format /sdcard too)", "Format data?",MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 Process p = new Process();
@@ -728,8 +732,6 @@ namespace WpfApp1
                 p.Kill();
                 p.Dispose();
             }
-            
-            
         }
 
         private void sideloadTwrpButton_Click(object sender, RoutedEventArgs e)
