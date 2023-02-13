@@ -532,67 +532,26 @@ namespace WpfApp1
 
         private void partitionFlashButton_Click(object sender, RoutedEventArgs e)
         {
-            if (systemPartitionRadioButton.IsChecked == true)
-            {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    Process p = new Process();
-                    p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.Arguments = "flash system \"" + openFileDialog.FileName + "\"";
-                    p.Start();
-                    p.WaitForExit();
-                    p.Kill();
-                    p.Dispose();
-                }
+            if (systemPartitionRadioButton.IsChecked == true) {
+                FastbootFlash("system");
             }
-            else if (bootPartitionRadioButton.IsChecked == true)
-            {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    Process p = new Process();
-                    p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.Arguments = "flash boot \"" + openFileDialog.FileName + "\"";
-                    p.Start();
-                    p.WaitForExit();
-                    p.Kill();
-                    p.Dispose();
-                }
+            else if (bootPartitionRadioButton.IsChecked == true) {
+                FastbootFlash("boot");
             }
-            else if (vendorPartitionRadioButton.IsChecked == true)
-            {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    Process p = new Process();
-                    p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.Arguments = "flash vendor \"" + openFileDialog.FileName + "\"";
-                    p.Start();
-                    p.WaitForExit();
-                    p.Kill();
-                    p.Dispose();
-                }
+            else if (vendorPartitionRadioButton.IsChecked == true) {
+                FastbootFlash("vendor");
             }
-            else
-            {
+            else {
                 MessageBox.Show(Application.Current.MainWindow,"Please select partition.", "Partition not selected");
                 return;
+            }
+        }
+
+        private static void FastbootFlash(string partition) {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = $"Select {partition} image";
+            if (openFileDialog.ShowDialog() == true) {
+                Utils.RunFastboot($"flash {partition} \"{openFileDialog.FileName}\"");
             }
         }
 
