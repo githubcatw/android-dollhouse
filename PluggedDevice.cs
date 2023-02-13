@@ -204,7 +204,6 @@ namespace WpfApp1
                 p.WaitForExitAsync();
 
                 //get slot in fastboot
-                p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
                 p.StartInfo.Arguments = "getvar current-slot";
                 p.Start();
                 output = p.StandardError.ReadToEnd().Trim().Replace("_", "");
