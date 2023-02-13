@@ -186,11 +186,7 @@ namespace WpfApp1
                 currentSlotLabel.Text = "Device is A-only";
                 slotASwitch.Visibility = slotBSwitch.Visibility = slotSwitchButton.Visibility = Visibility.Collapsed;
             } else {
-                if (MainWindow.adbDevice.CurrentSlot == "b")
-                    currentSlotLabel.Text = "Current Slot: B";
-                else if (MainWindow.adbDevice.CurrentSlot == "a")
-                    currentSlotLabel.Text = "Current Slot: A";
-
+                currentSlotLabel.Text = $"Current Slot: {MainWindow.adbDevice.CurrentSlot.ToUpper()}";
                 slotASwitch.Visibility = slotBSwitch.Visibility = slotSwitchButton.Visibility = Visibility.Visible;
             }
 
