@@ -25,6 +25,7 @@ namespace WpfApp1
         public string CurrentVendor = "";
         public string SELinuxStatus = "";
         public string OSVersion = "";
+        public string SDK = "";
         public bool IsSamsung = false;
         public bool IsHMOS = false;
         public string KnoxBit = "";
@@ -71,6 +72,7 @@ namespace WpfApp1
                 try {
                     Serial = data[0];
                     if (data[1] == "fastboot") {
+                        CurrentModeString = "Bootloader";
                         CurrentMode = PluggedDeviceMode.Bootloader;
                     }
 
@@ -81,55 +83,26 @@ namespace WpfApp1
                     Name = "No Device Detected.";
                 }
 
+                // Reset the filename to ADB
+                p.StartInfo.FileName = "./res/platform-tools/adb.exe";
             }
             p.WaitForExitAsync();
 
-            //get product.name(codename)
-            p.StartInfo.FileName = "./res/platform-tools/adb.exe";
-            p.StartInfo.Arguments = "shell getprop ro.product.name";
-            p.Start();
-            Name = p.StandardOutput.ReadToEnd().Trim();
-            p.WaitForExitAsync();
+            // get product.name(codename)
+            Name = GetProp("ro.product.name", p);
 
-            //get build.version
-            p.StartInfo.FileName = "./res/platform-tools/adb.exe";
-            p.StartInfo.Arguments = "shell getprop ro.build.version.release";
-            p.Start();
-            OSVersion = p.StandardOutput.ReadToEnd().Trim();
-            p.WaitForExitAsync();
+            // get build.version
+            OSVersion = GetProp("ro.build.version.release", p);
 
-            //get SDK version
-            p.StartInfo.FileName = "./res/platform-tools/adb.exe";
-            p.StartInfo.Arguments = "shell getprop ro.build.version.sdk";
-            p.Start();
-            var sdk = p.StandardOutput.ReadToEnd().Trim();
-            OSVersion += "(API " + sdk + ")";
-            p.WaitForExitAsync();
+            // get SDK version
+            SDK = GetProp("ro.build.version.sdk", p);
+            OSVersion += "(API " + SDK + ")";
 
-            //get product.model
+            // get product.model
+            Model = GetProp("ro.product.model", p);
 
-            p.StartInfo.Arguments = "shell getprop ro.product.model";
-            p.Start();
-            Model = p.StandardOutput.ReadToEnd().Trim();
-            if (Model.StartsWith("SM-")) {
-                IsSamsung = true;
-
-                // Detect warranty bit
-                var bit = GetProp("ro.boot.warranty_bit");
-                if (bit == "") {
-                    bit = GetProp("ro.warranty_bit");
-                }
-                KnoxBit = bit;
-            }
-
-            // TODO better HarmonyOS detection (I don't have a Huawei device)
-            // This method assumes that every Huawei device running Android 10 is running HarmonyOS
-            p.StartInfo.Arguments = "shell getprop ro.build.fingerprint";
-            p.Start();
-            var fp = p.StandardOutput.ReadToEnd().Trim();
-            if (fp.StartsWith("HUAWEI") && sdk == "29") {
-                IsHMOS = true;
-            }
+            // get any additional props
+            DetectVendorSpecificParams(p);
 
             if (CurrentMode != PluggedDeviceMode.Bootloader)
             {
@@ -243,21 +216,42 @@ namespace WpfApp1
             b.Content = "Refresh";
         }
 
-        string GetProp(string prop) {
-            Process p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = "./res/platform-tools/adb.exe";
+        private void DetectVendorSpecificParams(Process p) {
+            // Detect Samsung devices
+            if (Model.StartsWith("SM-")) {
+                IsSamsung = true;
+
+                // Detect warranty bit
+                var bit = GetProp("ro.boot.warranty_bit", p);
+                if (bit == "") {
+                    bit = GetProp("ro.warranty_bit", p);
+                }
+                KnoxBit = bit;
+            }
+
+            // TODO better HarmonyOS detection (I don't have a Huawei device)
+            // This method assumes that every Huawei device running Android 10 is running HarmonyOS
+            var fp = GetProp("ro.build.fingerprint", p);
+            if (fp.StartsWith("HUAWEI") && SDK == "29") {
+                IsHMOS = true;
+            }
+        }
+
+        string GetProp(string prop, Process p = null) {
+            if (p == null) {
+                p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.FileName = "./res/platform-tools/adb.exe";
+            }
             p.StartInfo.Arguments = "shell getprop " + prop;
             p.Start();
             var ret = p.StandardOutput.ReadToEnd().Trim();
             p.WaitForExitAsync();
             return ret;
         }
-
-
     }
 }
