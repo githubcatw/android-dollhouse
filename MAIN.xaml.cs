@@ -35,14 +35,14 @@ namespace WpfApp1
         private async void fetchData()
         {
             MainWindow.adbDevice = new PluggedDevice(DeviceInfoRefresh);
-            serial.Text = MainWindow.adbDevice.deviceSerial;
-            imei.Text = MainWindow.adbDevice.deviceImei;
-            storage.Text = MainWindow.adbDevice.deviceStorage;
-            model.Text = MainWindow.adbDevice.deviceModel;
-            name.Text = MainWindow.adbDevice.deviceName;
-            selinux.Text = MainWindow.adbDevice.deviceSELINUXStatus;
+            serial.Text = MainWindow.adbDevice.Serial;
+            imei.Text = MainWindow.adbDevice.IMEI;
+            storage.Text = MainWindow.adbDevice.Storage;
+            model.Text = MainWindow.adbDevice.Model;
+            name.Text = MainWindow.adbDevice.Name;
+            selinux.Text = MainWindow.adbDevice.SELinuxStatus;
 
-            if (MainWindow.adbDevice.deviceCurrentMode == "Unplugged")
+            if (MainWindow.adbDevice.CurrentMode == "Unplugged")
             {
                 streamScreenButton.IsEnabled=false;
 
@@ -81,7 +81,7 @@ namespace WpfApp1
 
             }
 
-            if (MainWindow.adbDevice.deviceCurrentMode == "System") {
+            if (MainWindow.adbDevice.CurrentMode == "System") {
                 streamScreenButton.IsEnabled = true;
 
                 updateImage();
@@ -111,13 +111,13 @@ namespace WpfApp1
                 FlashZipTwrpButton.IsEnabled = false;
                 FormatDataTwrpButton.IsEnabled = false;
                 sideloadTwrpButton.IsEnabled = false;
-                if (MainWindow.adbDevice.deviceIsSamsung)
+                if (MainWindow.adbDevice.IsSamsung)
                     bootloaderSwitch.Content = "Download Mode";
                 else
                     bootloaderSwitch.Content = "Bootloader Mode";
             }
 
-            else if (MainWindow.adbDevice.deviceCurrentMode == "Bootloader")
+            else if (MainWindow.adbDevice.CurrentMode == "Bootloader")
             {
                 streamScreenButton.IsEnabled = false;
                 DeviceModeSwitchButton.IsEnabled = true;
@@ -148,7 +148,7 @@ namespace WpfApp1
 
             }
 
-            else if (MainWindow.adbDevice.deviceCurrentMode == "Recovery")
+            else if (MainWindow.adbDevice.CurrentMode == "Recovery")
             {
                 streamScreenButton.IsEnabled = false;
 
@@ -182,13 +182,13 @@ namespace WpfApp1
 
             }
 
-            if (MainWindow.adbDevice.deviceCurrentSlot == "") {
+            if (MainWindow.adbDevice.CurrentSlot == "") {
                 currentSlotLabel.Text = "Device is A-only";
                 slotASwitch.Visibility = slotBSwitch.Visibility = slotSwitchButton.Visibility = Visibility.Collapsed;
             } else {
-                if (MainWindow.adbDevice.deviceCurrentSlot == "b")
+                if (MainWindow.adbDevice.CurrentSlot == "b")
                     currentSlotLabel.Text = "Current Slot: B";
-                else if (MainWindow.adbDevice.deviceCurrentSlot == "a")
+                else if (MainWindow.adbDevice.CurrentSlot == "a")
                     currentSlotLabel.Text = "Current Slot: A";
 
                 slotASwitch.Visibility = slotBSwitch.Visibility = slotSwitchButton.Visibility = Visibility.Visible;
@@ -197,46 +197,46 @@ namespace WpfApp1
         }
 
         private void updateImage() {
-            if (MainWindow.adbDevice.deviceName.Contains("marlin")) {          /* P1 */
+            if (MainWindow.adbDevice.Name.Contains("marlin")) {          /* P1 */
                 setImageOrGeneric("./res/pixel1.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("sailfish")) {   /* P1 XL */
+            else if (MainWindow.adbDevice.Name.Contains("sailfish")) {   /* P1 XL */
                 setImageOrGeneric("./res/pixel1.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("walleye")) {    /* P2 */
+            else if (MainWindow.adbDevice.Name.Contains("walleye")) {    /* P2 */
                 setImageOrGeneric("./res/walleye.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("taimen")) {     /* P2 XL */
+            else if (MainWindow.adbDevice.Name.Contains("taimen")) {     /* P2 XL */
                 setImageOrGeneric("./res/taimen.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("blueline")) {   /* P3 */
+            else if (MainWindow.adbDevice.Name.Contains("blueline")) {   /* P3 */
                 setImageOrGeneric("./res/pixel3.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("crosshatch")) { /* P3 XL */
+            else if (MainWindow.adbDevice.Name.Contains("crosshatch")) { /* P3 XL */
                 setImageOrGeneric("./res/pixel3xl.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("sargo")) {      /* P3a */
+            else if (MainWindow.adbDevice.Name.Contains("sargo")) {      /* P3a */
                 setImageOrGeneric("./res/pixel3a.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("bonito")) {     /* P3a XL */
+            else if (MainWindow.adbDevice.Name.Contains("bonito")) {     /* P3a XL */
                 setImageOrGeneric("./res/pixel3a.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("flame")) {      /* P4 */
+            else if (MainWindow.adbDevice.Name.Contains("flame")) {      /* P4 */
                 setImageOrGeneric("./res/pixel4.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("coral")) {      /* P4 XL */
+            else if (MainWindow.adbDevice.Name.Contains("coral")) {      /* P4 XL */
                 setImageOrGeneric("./res/pixel4xl.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("redfin")) {     /* P5 */
+            else if (MainWindow.adbDevice.Name.Contains("redfin")) {     /* P5 */
                 setImageOrGeneric("./res/pixel5.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("barbet")) {     /* P5a */
+            else if (MainWindow.adbDevice.Name.Contains("barbet")) {     /* P5a */
                 setImageOrGeneric("./res/barbet.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("oriole")) {     /* P6 */
+            else if (MainWindow.adbDevice.Name.Contains("oriole")) {     /* P6 */
                 setImageOrGeneric("./res/oriole.png");
             }
-            else if (MainWindow.adbDevice.deviceName.Contains("raven")) {      /* P6 Pro */
+            else if (MainWindow.adbDevice.Name.Contains("raven")) {      /* P6 Pro */
                 setImageOrGeneric("./res/raven.png");
             }
             else setGeneric();
@@ -251,9 +251,9 @@ namespace WpfApp1
 
         private void setGeneric() {
             var uri = "";
-            if (MainWindow.adbDevice.deviceIsSamsung)
+            if (MainWindow.adbDevice.IsSamsung)
                 uri = "./res/generic_samsung.png";
-            else if (MainWindow.adbDevice.deviceIsHMOS)
+            else if (MainWindow.adbDevice.IsHMOS)
                 uri = "./res/generic_hmos.png";
             else
                 uri = "./res/generic.png";
@@ -270,7 +270,7 @@ namespace WpfApp1
             fetchData();
             if ((bool)recoverySwitch.IsChecked)
             {
-                if (MainWindow.adbDevice.deviceCurrentMode != "Bootloader")
+                if (MainWindow.adbDevice.CurrentMode != "Bootloader")
                 {
                     Process p = new Process();
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
@@ -303,7 +303,7 @@ namespace WpfApp1
             }
             else if ((bool)bootloaderSwitch.IsChecked)
             {
-                if (MainWindow.adbDevice.deviceCurrentMode != "Bootloader")
+                if (MainWindow.adbDevice.CurrentMode != "Bootloader")
                 {
                     Process p = new Process();
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
@@ -340,7 +340,7 @@ namespace WpfApp1
             }
             else if ((bool)systemSwitch.IsChecked)
             {
-                if (MainWindow.adbDevice.deviceCurrentMode != "Bootloader")
+                if (MainWindow.adbDevice.CurrentMode != "Bootloader")
                 {
                     Process p = new Process();
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
@@ -380,7 +380,7 @@ namespace WpfApp1
         private void slotSwitchButton_Click(object sender, RoutedEventArgs e)
         {
             fetchData();
-            if (MainWindow.adbDevice.deviceCurrentMode != "Bootloader")
+            if (MainWindow.adbDevice.CurrentMode != "Bootloader")
             {
                 MessageBox.Show(Application.Current.MainWindow, "You must reboot to bootloader mode before using this.");
                 return;
@@ -430,7 +430,7 @@ namespace WpfApp1
             adbConnectButton.IsEnabled = false;
 
             fetchData();
-            if (MainWindow.adbDevice.deviceCurrentMode != "Bootloader")
+            if (MainWindow.adbDevice.CurrentMode != "Bootloader")
             {
                 Process p = new Process();
                 p.StartInfo.FileName = "./res/platform-tools/adb.exe";
