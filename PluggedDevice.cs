@@ -85,12 +85,6 @@ namespace WpfApp1
             p.WaitForExitAsync();
 
             //get product.name(codename)
-
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = "./res/platform-tools/adb.exe";
             p.StartInfo.Arguments = "shell getprop ro.product.name";
             p.Start();
@@ -98,12 +92,6 @@ namespace WpfApp1
             p.WaitForExitAsync();
 
             //get build.version
-
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = "./res/platform-tools/adb.exe";
             p.StartInfo.Arguments = "shell getprop ro.build.version.release";
             p.Start();
@@ -111,11 +99,6 @@ namespace WpfApp1
             p.WaitForExitAsync();
 
             //get SDK version
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = "./res/platform-tools/adb.exe";
             p.StartInfo.Arguments = "shell getprop ro.build.version.sdk";
             p.Start();
@@ -150,12 +133,6 @@ namespace WpfApp1
 
             if (CurrentMode != PluggedDeviceMode.Bootloader)
             {
-                //get selinux 
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.RedirectStandardInput = true;
-                p.StartInfo.RedirectStandardError = true;
-                p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.FileName = "./res/platform-tools/adb.exe";
                 p.StartInfo.Arguments = "shell";
                 p.Start();
