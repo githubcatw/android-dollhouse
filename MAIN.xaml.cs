@@ -266,162 +266,93 @@ namespace WpfApp1
             fetchData();
         }
 
-        private void reboot_button_click(object sender, RoutedEventArgs e)
-        {
+        private void reboot_button_click(object sender, RoutedEventArgs e) {
             fetchData();
-            if ((bool)recoverySwitch.IsChecked)
-            {
-                if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader)
-                {
-                    Process p = new Process();
+
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+
+            if ((bool)recoverySwitch.IsChecked) {
+                p.StartInfo.Arguments = "reboot recovery";
+                if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader) {
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.Arguments = "reboot recovery";
                     p.Start();
                     p.WaitForExit();
                     p.Kill();
                     p.Dispose();
-                    return;
-                }
-                else
-                {
-                    Process p = new Process();
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
+                } else {
                     p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                    p.StartInfo.Arguments = "reboot recovery";
                     p.Start();
                     p.WaitForExit();
-                    return;
                 }
+                return;
             }
-            else if ((bool)bootloaderSwitch.IsChecked)
-            {
-                if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader)
-                {
-                    Process p = new Process();
+            else if ((bool)bootloaderSwitch.IsChecked) {
+                if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader) {
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.Arguments = "reboot bootloader";
-                    p.Start();
-                    p.WaitForExit();
-                    p.Kill();
-                    p.Close();
-                    p.Dispose();
-                    return;
-                }
-                else
-                {
-                    Process p = new Process();
+                } else {
                     p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.Arguments = "reboot bootloader";
-                    p.Start();
-                    p.WaitForExit();
-                    p.Kill();
-                    p.Close();
-                    p.Dispose();
-                    return;
                 }
+                p.StartInfo.Arguments = "reboot bootloader";
+                p.Start();
+                p.WaitForExit();
+                p.Close();
+                p.Dispose();
+                return;
             }
-            else if ((bool)systemSwitch.IsChecked)
-            {
-                if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader)
-                {
-                    Process p = new Process();
+            else if ((bool)systemSwitch.IsChecked) {
+                if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader) {
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
                     p.StartInfo.Arguments = "reboot system";
-                    p.Start();
-                    p.WaitForExit();
-                    p.Kill();
-                    p.Close();
-                    p.Dispose();
-                    return;
                 }
-                else
-                {
-                    Process p = new Process();
+                else  {
                     p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
                     p.StartInfo.Arguments = "reboot";
-                    p.Start();
-                    p.WaitForExit();
-                    p.Kill();
-                    p.Close();
-                    p.Dispose();
-                    return;
                 }
+                p.Start();
+                p.WaitForExit();
+                p.Kill();
+                p.Close();
+                p.Dispose();
+                return;
             }
         }
 
         private void slotSwitchButton_Click(object sender, RoutedEventArgs e)
         {
             fetchData();
-            if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader)
-            {
+            if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader) {
                 MessageBox.Show(Application.Current.MainWindow, "You must reboot to bootloader mode before using this.");
                 return;
             }
-            else
-            {
-                if ((bool)slotASwitch.IsChecked)
-                {
-                    Process p = new Process();
-                    p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.Arguments = "--set-active=a";
-                    p.Start();
-                    p.WaitForExit();
-                    fetchData();
-                }
-                else if ((bool)slotBSwitch.IsChecked)
-                {
-                    Process p = new Process();
-                    p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.Arguments = "--set-active=b";
-                    p.Start();
-                    p.WaitForExit();
-                    fetchData();
-                }
-                else
-                {
-                    MessageBox.Show(Application.Current.MainWindow,"Select a slot.");
+            else {
+                if (!(bool)slotASwitch.IsChecked && !(bool)slotBSwitch.IsChecked) {
+                    MessageBox.Show(Application.Current.MainWindow, "Select a slot.");
                     return;
                 }
 
+                Process p = new Process();
+                p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+
+                if ((bool)slotASwitch.IsChecked) {
+                    p.StartInfo.Arguments = "--set-active=a";
+                }
+                else if ((bool)slotBSwitch.IsChecked) {
+                    p.StartInfo.Arguments = "--set-active=b";
+                }
+
+                p.Start();
+                p.WaitForExit();
+                fetchData();
             }
         }
 
