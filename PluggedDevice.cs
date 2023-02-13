@@ -78,83 +78,40 @@ namespace WpfApp1
         /// </summary>
         public string KnoxBit = "";
 
-        public PluggedDevice(Button b) {
+        public PluggedDevice(Button b)
+        {
             Process p = new Process();
             p.StartInfo.FileName = "./res/platform-tools/adb.exe";
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.Arguments = "devices -l";
+            SetupProcess(p);
+
             b.Content = "Refreshing";
-            //Get current mode
-            p.Start();
-            p.WaitForExitAsync();
-            string output = p.StandardOutput.ReadToEnd().Remove(0,26).Trim();
-            output = Regex.Replace(output, @"\s+", " ");
-            string[] data = output.Split(" ").ToArray();
-            try {
-                Serial = data[0];
-                if (data[1] == "device") {
-                    CurrentModeString = "System";
-                    CurrentMode = PluggedDeviceMode.System;
-                }
-                else if (data[1] == "recovery") {
-                    CurrentModeString = "Recovery";
-                    CurrentMode = PluggedDeviceMode.Recovery;
-                }
-            }
-            catch (IndexOutOfRangeException) {
-                p.WaitForExit();
-                p.Kill();
+            string output;
+            string[] data;
 
-                p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                p.StartInfo.Arguments = "devices";
-                p.Start();
+            // Get current mode
+            DetectMode(p, out output, out data);
 
-                output = p.StandardOutput.ReadToEnd().Trim();
-                output = Regex.Replace(output, @"\s+", " ");
-                data = output.Split(" ").ToArray();
-                try {
-                    Serial = data[0];
-                    if (data[1] == "fastboot") {
-                        CurrentModeString = "Bootloader";
-                        CurrentMode = PluggedDeviceMode.Bootloader;
-                    }
-
-                }
-                catch (IndexOutOfRangeException) {
-                    Serial = "";
-                    Model = "";
-                    Name = "No Device Detected.";
-                }
-                p.WaitForExitAsync();
-
-                // Reset the filename to ADB
-                p.StartInfo.FileName = "./res/platform-tools/adb.exe";
-            }
-
-            // get product.name(codename)
+            // Get product.name(codename)
             Name = GetProp("ro.product.name", p);
 
-            // get build.version
+            // Get build.version
             OSVersion = GetProp("ro.build.version.release", p);
 
-            // get SDK version
+            // Get SDK version
             SDK = GetProp("ro.build.version.sdk", p);
             OSVersion += "(API " + SDK + ")";
 
-            // get product.model
+            // Get product.model
             Model = GetProp("ro.product.model", p);
 
-            // get any additional props
+            // Get any additional props
             DetectVendorSpecificParams(p);
 
-            if (CurrentMode != PluggedDeviceMode.Bootloader)
-            {
+            // Reset the filename to ADB
+            p.StartInfo.FileName = "./res/platform-tools/adb.exe";
+
+            if (CurrentMode != PluggedDeviceMode.Bootloader) {
                 //get selinux
-                p.StartInfo.FileName = "./res/platform-tools/adb.exe";
                 p.StartInfo.Arguments = "shell";
                 p.Start();
                 p.StandardInput.WriteLine("getenforce");
@@ -186,8 +143,8 @@ namespace WpfApp1
                     else IMEI = output;
                     p.WaitForExitAsync();
                 }
-                
-                
+
+
 
                 //get storage
                 p.StartInfo.FileName = "./res/platform-tools/adb.exe";
@@ -252,15 +209,73 @@ namespace WpfApp1
                 p.StartInfo.Arguments = "getvar current-slot";
                 p.Start();
                 output = p.StandardError.ReadToEnd().Trim().Replace("_", "");
-                data = output.Replace("\r"," ").Replace("\n","").Split(" ").ToArray();
-                
+                data = output.Replace("\r", " ").Replace("\n", "").Split(" ").ToArray();
+
                 CurrentSlot = data[1];
                 p.WaitForExitAsync();
             }
-            
+
             p.WaitForExitAsync();
             p.Kill();
             b.Content = "Refresh";
+        }
+
+        private void DetectMode(Process p, out string output, out string[] data) {
+            p.StartInfo.Arguments = "devices -l";
+            p.Start();
+            p.WaitForExitAsync();
+            output = p.StandardOutput.ReadToEnd().Remove(0, 26).Trim();
+            output = Regex.Replace(output, @"\s+", " ");
+            data = output.Split(" ").ToArray();
+            try {
+                Serial = data[0];
+                if (data[1] == "device") {
+                    CurrentModeString = "System";
+                    CurrentMode = PluggedDeviceMode.System;
+                }
+                else if (data[1] == "recovery") {
+                    CurrentModeString = "Recovery";
+                    CurrentMode = PluggedDeviceMode.Recovery;
+                }
+            }
+            catch (IndexOutOfRangeException) {
+                p.WaitForExit();
+                p.Kill();
+
+                p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
+                p.StartInfo.Arguments = "devices";
+                p.Start();
+
+                output = p.StandardOutput.ReadToEnd().Trim();
+                output = Regex.Replace(output, @"\s+", " ");
+                data = output.Split(" ").ToArray();
+                try {
+                    Serial = data[0];
+                    if (data[1] == "fastboot") {
+                        CurrentModeString = "Bootloader";
+                        CurrentMode = PluggedDeviceMode.Bootloader;
+                    }
+
+                }
+                catch (IndexOutOfRangeException) {
+                    Serial = "";
+                    Model = "";
+                    Name = "No Device Detected.";
+                }
+                p.WaitForExitAsync();
+
+                // Reset the filename to ADB
+                p.StartInfo.FileName = "./res/platform-tools/adb.exe";
+            }
+        }
+
+        private static void SetupProcess(Process p)
+        {
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.RedirectStandardOutput = true;
         }
 
         private void DetectVendorSpecificParams(Process p) {
