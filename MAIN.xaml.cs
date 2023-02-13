@@ -42,7 +42,7 @@ namespace WpfApp1
             name.Text = MainWindow.adbDevice.Name;
             selinux.Text = MainWindow.adbDevice.SELinuxStatus;
 
-            if (MainWindow.adbDevice.CurrentMode == "Unplugged")
+            if (MainWindow.adbDevice.CurrentMode == PluggedDeviceMode.None)
             {
                 streamScreenButton.IsEnabled=false;
 
@@ -81,7 +81,7 @@ namespace WpfApp1
 
             }
 
-            if (MainWindow.adbDevice.CurrentMode == "System") {
+            if (MainWindow.adbDevice.CurrentMode == PluggedDeviceMode.System) {
                 streamScreenButton.IsEnabled = true;
 
                 updateImage();
@@ -117,7 +117,7 @@ namespace WpfApp1
                     bootloaderSwitch.Content = "Bootloader Mode";
             }
 
-            else if (MainWindow.adbDevice.CurrentMode == "Bootloader")
+            else if (MainWindow.adbDevice.CurrentMode == PluggedDeviceMode.Bootloader)
             {
                 streamScreenButton.IsEnabled = false;
                 DeviceModeSwitchButton.IsEnabled = true;
@@ -148,7 +148,7 @@ namespace WpfApp1
 
             }
 
-            else if (MainWindow.adbDevice.CurrentMode == "Recovery")
+            else if (MainWindow.adbDevice.CurrentMode == PluggedDeviceMode.Recovery)
             {
                 streamScreenButton.IsEnabled = false;
 
@@ -270,7 +270,7 @@ namespace WpfApp1
             fetchData();
             if ((bool)recoverySwitch.IsChecked)
             {
-                if (MainWindow.adbDevice.CurrentMode != "Bootloader")
+                if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader)
                 {
                     Process p = new Process();
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
@@ -303,7 +303,7 @@ namespace WpfApp1
             }
             else if ((bool)bootloaderSwitch.IsChecked)
             {
-                if (MainWindow.adbDevice.CurrentMode != "Bootloader")
+                if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader)
                 {
                     Process p = new Process();
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
@@ -340,7 +340,7 @@ namespace WpfApp1
             }
             else if ((bool)systemSwitch.IsChecked)
             {
-                if (MainWindow.adbDevice.CurrentMode != "Bootloader")
+                if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader)
                 {
                     Process p = new Process();
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
@@ -380,7 +380,7 @@ namespace WpfApp1
         private void slotSwitchButton_Click(object sender, RoutedEventArgs e)
         {
             fetchData();
-            if (MainWindow.adbDevice.CurrentMode != "Bootloader")
+            if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader)
             {
                 MessageBox.Show(Application.Current.MainWindow, "You must reboot to bootloader mode before using this.");
                 return;
@@ -430,7 +430,7 @@ namespace WpfApp1
             adbConnectButton.IsEnabled = false;
 
             fetchData();
-            if (MainWindow.adbDevice.CurrentMode != "Bootloader")
+            if (MainWindow.adbDevice.CurrentMode != PluggedDeviceMode.Bootloader)
             {
                 Process p = new Process();
                 p.StartInfo.FileName = "./res/platform-tools/adb.exe";

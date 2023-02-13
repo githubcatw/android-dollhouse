@@ -17,7 +17,9 @@ namespace WpfApp1
         public string Storage = "";
         public string IMEI = "";
         public string Serial = "";
-        public string CurrentMode = "Unplugged";
+        [Obsolete("Please use CurrentMode instead")]
+        public string CurrentModeString = "Unplugged";
+        public PluggedDeviceMode CurrentMode = PluggedDeviceMode.None;
         public string CurrentSlot = "";
         public bool IsInBootloader = false;
         public string CurrentVendor = "";
@@ -44,20 +46,18 @@ namespace WpfApp1
             string output = p.StandardOutput.ReadToEnd().Remove(0,26).Trim();
             output = Regex.Replace(output, @"\s+", " ");
             string[] data = output.Split(" ").ToArray();
-            try
-            {
+            try {
                 Serial = data[0];
-                if (data[1] == "device")
-                {
-                    CurrentMode = "System";
+                if (data[1] == "device") {
+                    CurrentModeString = "System";
+                    CurrentMode = PluggedDeviceMode.System;
                 }
-                else if (data[1] == "recovery")
-                {
-                    CurrentMode = "Recovery";
+                else if (data[1] == "recovery") {
+                    CurrentModeString = "Recovery";
+                    CurrentMode = PluggedDeviceMode.Recovery;
                 }
             }
-            catch (IndexOutOfRangeException)
-            {
+            catch (IndexOutOfRangeException) {
                 p.WaitForExit();
                 p.Kill();
 
@@ -68,17 +68,14 @@ namespace WpfApp1
                 output = p.StandardOutput.ReadToEnd().Trim();
                 output = Regex.Replace(output, @"\s+", " ");
                 data = output.Split(" ").ToArray();
-                try
-                {
+                try {
                     Serial = data[0];
-                    if (data[1] == "fastboot")
-                    {
-                        CurrentMode = "Bootloader";
+                    if (data[1] == "fastboot") {
+                        CurrentMode = PluggedDeviceMode.Bootloader;
                     }
 
                 }
-                catch (IndexOutOfRangeException)
-                {
+                catch (IndexOutOfRangeException) {
                     Serial = "";
                     Model = "";
                     Name = "No Device Detected.";
@@ -151,7 +148,7 @@ namespace WpfApp1
                 IsHMOS = true;
             }
 
-            if (CurrentMode != "Bootloader")
+            if (CurrentMode != PluggedDeviceMode.Bootloader)
             {
                 //get selinux 
                 p.StartInfo.UseShellExecute = false;
@@ -189,11 +186,11 @@ namespace WpfApp1
                 p.WaitForExitAsync();
 
                 //get imei
-                if (CurrentMode == "Recovery")
+                if (CurrentMode == PluggedDeviceMode.Recovery)
                 {
                     IMEI = "Inaccessible in TWRP";
                 }
-                else if (CurrentMode == "System")
+                else if (CurrentMode == PluggedDeviceMode.System)
                 {
                     p.Start();
                     p.StandardInput.WriteLine("service call iphonesubinfo 1 | cut -c 52-66 | tr -d '.[:space:]'");
@@ -245,7 +242,7 @@ namespace WpfApp1
 
 
                 //get boot slot
-                if (CurrentMode!="Bootloader")
+                if (CurrentMode != PluggedDeviceMode.Bootloader)
                 {
                     p.StartInfo.FileName = "./res/platform-tools/adb.exe";
                     p.StartInfo.Arguments = "shell /bin/getprop ro.boot.slot_suffix";
