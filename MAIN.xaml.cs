@@ -728,7 +728,7 @@ namespace WpfApp1
                 p.Start();
                 p.WaitForExit();
                 string output = p.StandardOutput.ReadToEnd();
-                output = p.StandardError.ReadToEnd();
+                output += p.StandardError.ReadToEnd();
                 p.Kill();
                 p.Dispose();
             }
