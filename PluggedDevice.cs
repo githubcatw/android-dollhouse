@@ -12,26 +12,73 @@ namespace WpfApp1
 {
     public class PluggedDevice
     {
+        /// <summary>
+        /// The device's model.
+        /// </summary>
         public string Model = "No Device Detected.";
-        public string Name ="";
+        /// <summary>
+        /// The device's codename.
+        /// </summary>
+        public string Name = "";
+        /// <summary>
+        /// The device's vendor.
+        /// </summary>
+        public string CurrentVendor = "";
+
+        /// <summary>
+        /// The device's storage capacity.
+        /// </summary>
         public string Storage = "";
+
+        /// <summary>
+        /// The device's IMEI, if available.
+        /// </summary>
         public string IMEI = "";
+        /// <summary>
+        /// The device's serial number, if available.
+        /// </summary>
         public string Serial = "";
+
         [Obsolete("Please use CurrentMode instead")]
         public string CurrentModeString = "Unplugged";
+
+        /// <summary>
+        /// The device's mode.
+        /// </summary>
         public PluggedDeviceMode CurrentMode = PluggedDeviceMode.None;
-        public string CurrentSlot = "";
-        public bool IsInBootloader = false;
-        public string CurrentVendor = "";
-        public string SELinuxStatus = "";
+        /// <summary>
+        /// The device's Android version, if available.
+        /// </summary>
         public string OSVersion = "";
+        /// <summary>
+        /// The device's Android SDK level, if available.
+        /// </summary>
         public string SDK = "";
+
+        /// <summary>
+        /// The device's slot, if it uses A/B partitioning.
+        /// </summary>
+        public string CurrentSlot = "";
+        /// <summary>
+        /// The device's SELinux status.
+        /// </summary>
+        public string SELinuxStatus = "";
+
+        /// <summary>
+        /// Is this device a Samsung?
+        /// </summary>
         public bool IsSamsung = false;
+        /// <summary>
+        /// Is this device running HarmonyOS?
+        /// </summary>
         public bool IsHMOS = false;
+
+        /// <summary>
+        /// If this device is a Samsung, the device's Knox warranty bit.
+        /// </summary>
         public string KnoxBit = "";
 
-        public PluggedDevice(Button b)
-        {
+        public PluggedDevice(Button b) {
             Process p = new Process();
             p.StartInfo.FileName = "./res/platform-tools/adb.exe";
             p.StartInfo.UseShellExecute = false;
@@ -82,11 +129,11 @@ namespace WpfApp1
                     Model = "";
                     Name = "No Device Detected.";
                 }
+                p.WaitForExitAsync();
 
                 // Reset the filename to ADB
                 p.StartInfo.FileName = "./res/platform-tools/adb.exe";
             }
-            p.WaitForExitAsync();
 
             // get product.name(codename)
             Name = GetProp("ro.product.name", p);
