@@ -157,8 +157,8 @@ namespace WpfApp1
                 data = output.Split(" ").ToArray();
                 try {
                     Storage = data[1] + 'B';
-                    Storage = new string(Storage.Where(Char.IsDigit).ToArray());
-                    switch (int.Parse(Storage)) {
+                    int storageBytes = int.Parse(new string(Storage.Where(char.IsDigit).ToArray()));
+                    switch (storageBytes) {
                         case <= 32:
                             Storage = "32GB";
                             break;
@@ -172,7 +172,6 @@ namespace WpfApp1
                             Storage = "256GB";
                             break;
                     }
-
                 }
                 catch (IndexOutOfRangeException) {
                     Storage = "Can't detect storage.";
