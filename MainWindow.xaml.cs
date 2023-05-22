@@ -29,7 +29,7 @@ namespace WpfApp1
     public partial class MainWindow
     {
         
-        string VersionNumber = "v0.0.3-alpha";
+        string VersionNumber = "v0.0.4-alpha";
         public static PluggedDevice adbDevice;
         public MAIN MAIN = new MAIN();
         public int settings;
