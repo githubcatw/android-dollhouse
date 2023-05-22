@@ -13,10 +13,8 @@
                   Loaded="AcrylicWindow_Loaded"
                   fw:AcrylicWindow.Enabled="True"
                   Closed="MainWindowBase_Closed">
-
-    
-
-    <Grid xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"  MinHeight="500" MinWidth="1000" >
+	
+	<Grid xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"  MinHeight="500" MinWidth="1000" >
         
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -51,11 +49,7 @@
 
         </Grid>
 
-        <Frame  xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF" x:Name="Frame" Grid.Row="1" Grid.ColumnSpan="10" Grid.RowSpan="10" Source="MAIN.xaml" NavigationUIVisibility="Hidden" ></Frame>
-
-
-
-
-
-    </Grid>
+		<Frame xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF" x:Name="Frame"
+			   Grid.Row="1" Grid.ColumnSpan="10" Grid.RowSpan="10" Source="MAIN.xaml" NavigationUIVisibility="Hidden" ></Frame>
+	</Grid>
 </fw:AcrylicWindow>
