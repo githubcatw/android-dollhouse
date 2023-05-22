@@ -8,7 +8,7 @@
     <AssemblyName>Android Dollhouse</AssemblyName>
     <StartupObject>WpfApp1.App</StartupObject>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <FileVersion>0.0.3.0</FileVersion>
+    <FileVersion>0.0.4.0</FileVersion>
     <AssemblyVersion>0.0.4.0</AssemblyVersion>
   </PropertyGroup>
 
