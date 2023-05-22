@@ -176,7 +176,7 @@ namespace WpfApp1
         private async Task<Release> GetLatestVersion()
         {
             var client = new GitHubClient(new ProductHeaderValue("android-dollhouse"));
-            var releases = await client.Repository.Release.GetAll("dollscythe", "android-dollhouse");
+            var releases = await client.Repository.Release.GetAll("githubcatw", "android-dollhouse");
             var latestRelease = releases[0];
             return latestRelease;
         }
@@ -222,8 +222,6 @@ namespace WpfApp1
                     }
                     catch (System.ComponentModel.Win32Exception)
                     {
-
-
                         try
                         {
                             using (Stream fileBytes = await downloader.GetStreamAsync(latestUpdaterBuild.Assets[0].BrowserDownloadUrl))
