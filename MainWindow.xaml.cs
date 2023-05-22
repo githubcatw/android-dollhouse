@@ -39,7 +39,7 @@ namespace WpfApp1
 
         public MainWindow()
         {
-            this.FontFamily = new FontFamily("Product Sans");
+            this.FontFamily = new FontFamily("Inter");
             InitializeComponent();
         }
 

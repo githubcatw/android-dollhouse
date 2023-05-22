@@ -27,7 +27,7 @@ namespace WpfApp1
         public MAIN()
         {
             this.KeepAlive = true;
-            this.FontFamily = new FontFamily("Product Sans");
+            this.FontFamily = new FontFamily("Inter");
             InitializeComponent();
             fetchData();
         }
