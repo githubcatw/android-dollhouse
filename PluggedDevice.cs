@@ -144,10 +144,7 @@ namespace WpfApp1
                     p.WaitForExitAsync();
                 }
 
-
-
                 //get storage
-                p.StartInfo.FileName = "./res/platform-tools/adb.exe";
                 p.StartInfo.Arguments = "shell";
                 p.Start();
                 p.StandardInput.WriteLine("df -h | grep '/data'");
@@ -180,14 +177,8 @@ namespace WpfApp1
 
 
                 //get boot slot
-                if (CurrentMode != PluggedDeviceMode.Bootloader) {
-                    p.StartInfo.FileName = "./res/platform-tools/adb.exe";
-                    p.StartInfo.Arguments = "shell /bin/getprop ro.boot.slot_suffix";
-                }
-                else {
-                    p.StartInfo.FileName = "./res/platform-tools/fastboot.exe";
-                    p.StartInfo.Arguments = "getvar current-slot";
-                }
+                p.StartInfo.FileName = "./res/platform-tools/adb.exe";
+                p.StartInfo.Arguments = "shell /bin/getprop ro.boot.slot_suffix";
                 p.Start();
                 output = p.StandardOutput.ReadToEnd().Trim().Replace("_", "");
                 CurrentSlot = output;
